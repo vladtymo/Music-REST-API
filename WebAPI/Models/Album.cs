@@ -2,14 +2,14 @@
 
 namespace WebAPI.Models
 {
-    public class Track
+    public class Album
     {
         public int Id { get; set; }
-        //[Required, StringLength(100, MinimumLength = 2)]
-        //[RegularExpression("$[A-Z]")]
+        [Required, StringLength(100, MinimumLength = 2)]
+        [RegularExpression(@"$[A-Z]\w*^")]
         public string Name { get; set; }
-        //[Range(1,10)]
+        [Range(1,10)]
         public float Rating { get; set; }
-        public string? Duration { get; set; }
+        public int Year { get; set; }
     }
 }
