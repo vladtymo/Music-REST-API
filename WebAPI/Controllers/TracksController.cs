@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helpers;
-using WebAPI.Models;
+using DataAccess.Models;
+using DataAccess;
 
 namespace WebAPI.Controllers
 {
@@ -9,9 +10,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
-        public TracksController()
-        {
+        private readonly MusicCollectionDb context;
 
+        public TracksController(MusicCollectionDb context)
+        {
+            this.context = context;
         }
 
         [HttpGet]
@@ -19,7 +22,9 @@ namespace WebAPI.Controllers
         //[Route("/get-tracks")] // localhost:port/get-tracks
         public IActionResult GetAll()
         {
-            return Ok(MockData.GetTrackList(5));
+            var tracks = context.Tracks.ToList();
+
+            return Ok(tracks);
         }
 
         // Get data from route parameters
@@ -29,7 +34,11 @@ namespace WebAPI.Controllers
         {
             if (id < 0) return NotFound();
 
-            return Ok(MockData.GetTrack());
+            var track = context.Tracks.Find(id);
+
+            if (track == null) return NotFound();
+
+            return Ok(track);
         }
 
         // Get data from query parameters
@@ -54,7 +63,8 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            // TODO: create a new track in db
+            context.Tracks.Add(track);
+            context.SaveChanges();
 
             return Ok();
         }
@@ -62,7 +72,10 @@ namespace WebAPI.Controllers
         [HttpPut]
         public IActionResult Update([FromBody] Track track)
         {
-           // TODO: validations
+            // TODO: validations
+
+            context.Tracks.Update(track);
+            context.SaveChanges();
 
             return Ok();
         }
@@ -71,6 +84,13 @@ namespace WebAPI.Controllers
         public IActionResult Delete([FromRoute] int id)
         {
             if (id < 0) return NotFound();
+
+            var track = context.Tracks.Find(id);
+
+            if (track == null) return NotFound();
+
+            context.Tracks.Remove(track);
+            context.SaveChanges();
 
             return Ok();
         }

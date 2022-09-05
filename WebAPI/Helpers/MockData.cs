@@ -1,4 +1,4 @@
-﻿using WebAPI.Models;
+﻿using DataAccess.Models;
 
 namespace WebAPI.Helpers
 {
@@ -12,7 +12,7 @@ namespace WebAPI.Helpers
                 Id = rnd.Next(100),
                 Name = "Blue Sky",
                 Rating = 8.5F,
-                Duration = "2:35"
+                Duration = new TimeSpan(0, 3, 45)
             };
         }
         public static IEnumerable<Track> GetTrackList(int count = 1)
@@ -24,7 +24,7 @@ namespace WebAPI.Helpers
                     Id = rnd.Next(100),
                     Name = "Blue Sky",
                     Rating = 8.5F,
-                    Duration = "2:35"
+                    Duration = new TimeSpan(0, 2, 10)
                 };
             }
 
