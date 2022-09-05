@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI.Helpers;
 using DataAccess.Models;
 using DataAccess;
+using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
@@ -10,21 +11,19 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
-        private readonly MusicCollectionDb context;
+        private readonly ITrackService trackService;
 
-        public TracksController(MusicCollectionDb context)
+        public TracksController(ITrackService trackService)
         {
-            this.context = context;
+            this.trackService = trackService;
         }
 
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var tracks = context.Tracks.ToList();
-
-            return Ok(tracks);
+            return Ok(await trackService.GetAllAsync());
         }
 
         // Get data from route parameters
@@ -32,13 +31,9 @@ namespace WebAPI.Controllers
         [Route("{id:int}")] // route parameters
         public IActionResult Get([FromRoute] int id)
         {
-            if (id < 0) return NotFound();
+            // TODO: generate excepitons
 
-            var track = context.Tracks.Find(id);
-
-            if (track == null) return NotFound();
-
-            return Ok(track);
+            return Ok(trackService.Get(id));
         }
 
         // Get data from query parameters
@@ -63,8 +58,7 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            context.Tracks.Add(track);
-            context.SaveChanges();
+            trackService.Create(track);
 
             return Ok();
         }
@@ -74,8 +68,7 @@ namespace WebAPI.Controllers
         {
             // TODO: validations
 
-            context.Tracks.Update(track);
-            context.SaveChanges();
+            trackService.Update(track);
 
             return Ok();
         }
@@ -83,14 +76,7 @@ namespace WebAPI.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {
-            if (id < 0) return NotFound();
-
-            var track = context.Tracks.Find(id);
-
-            if (track == null) return NotFound();
-
-            context.Tracks.Remove(track);
-            context.SaveChanges();
+            trackService.Delete(id);
 
             return Ok();
         }
