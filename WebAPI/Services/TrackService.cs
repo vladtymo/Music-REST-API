@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.DTOs;
 using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Services
@@ -49,10 +50,17 @@ namespace WebAPI.Services
             return tracks;
         }
 
-        public async Task<IEnumerable<Track>> GetAllAsync()
+        public async Task<IEnumerable<TrackDTO>> GetAllAsync()
         {
             var tracks = await context.Tracks.ToListAsync();
-            return tracks;
+
+            return tracks.Select(t => new TrackDTO()
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Rating = t.Rating,
+                Duration = t.Duration
+            });
         }
 
         public void Update(Track track)

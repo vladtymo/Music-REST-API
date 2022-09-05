@@ -4,6 +4,7 @@ using WebAPI.Helpers;
 using DataAccess.Models;
 using DataAccess;
 using WebAPI.Services.Interfaces;
+using WebAPI.DTOs;
 
 namespace WebAPI.Controllers
 {
@@ -54,7 +55,7 @@ namespace WebAPI.Controllers
 
         // Get data from body
         [HttpPost]
-        public IActionResult Create([FromBody]Track track)
+        public IActionResult Create([FromBody] Track track)
         {
             if (!ModelState.IsValid) return BadRequest();
 

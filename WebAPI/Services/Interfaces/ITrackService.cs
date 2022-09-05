@@ -1,10 +1,11 @@
 ﻿using DataAccess.Models;
+using WebAPI.DTOs;
 
 namespace WebAPI.Services.Interfaces
 {
     public interface ITrackService
     {
-        Task<IEnumerable<Track>> GetAllAsync();
+        Task<IEnumerable<TrackDTO>> GetAllAsync();
         Track Get(int id);
         IEnumerable<Track> Get(float ratingFrom);
         void Create(Track track);
