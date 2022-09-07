@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
 
         // Get data from body
         [HttpPost]
-        public IActionResult Create([FromBody] Track track)
+        public IActionResult Create([FromBody] TrackDTO track)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -65,7 +65,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Track track)
+        public IActionResult Update([FromBody] TrackDTO track)
         {
             // TODO: validations
 

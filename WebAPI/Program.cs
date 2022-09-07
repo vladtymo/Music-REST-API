@@ -17,8 +17,10 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<MusicCollectionDb>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MusicDbConnection")));
 
-//builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddValidatorsFromAssemblyContaining<TrackValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ITrackService, TrackService>();
 

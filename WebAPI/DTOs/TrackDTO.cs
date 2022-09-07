@@ -2,6 +2,7 @@
 
 namespace WebAPI.DTOs
 {
+    // Data Transfer Object (DTO)
     public class TrackDTO
     {
         public int Id { get; set; }

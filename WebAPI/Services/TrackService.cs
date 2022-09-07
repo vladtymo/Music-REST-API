@@ -1,4 +1,5 @@
-﻿using DataAccess;
+﻿using AutoMapper;
+using DataAccess;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.DTOs;
@@ -9,15 +10,17 @@ namespace WebAPI.Services
     public class TrackService : ITrackService
     {
         private readonly MusicCollectionDb context;
+        private readonly IMapper mapper;
 
-        public TrackService(MusicCollectionDb context)
+        public TrackService(MusicCollectionDb context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
-        public void Create(Track track)
+        public void Create(TrackDTO track)
         {
-            context.Tracks.Add(track);
+            context.Tracks.Add(mapper.Map<Track>(track));
             context.SaveChanges();
         }
 
@@ -33,7 +36,7 @@ namespace WebAPI.Services
             context.SaveChanges();
         }
 
-        public Track Get(int id)
+        public TrackDTO Get(int id)
         {
             if (id < 0) return null;
 
@@ -41,31 +44,32 @@ namespace WebAPI.Services
 
             if (track == null) return null;
 
-            return track;
+            return mapper.Map<TrackDTO>(track);
         }
 
-        public IEnumerable<Track> Get(float ratingFrom)
+        public IEnumerable<TrackDTO> Get(float ratingFrom)
         {
             var tracks = context.Tracks.Where(t => t.Rating >= ratingFrom).ToList();
-            return tracks;
+            return mapper.Map<IEnumerable<TrackDTO>>(tracks);
         }
 
         public async Task<IEnumerable<TrackDTO>> GetAllAsync()
         {
             var tracks = await context.Tracks.ToListAsync();
 
-            return tracks.Select(t => new TrackDTO()
-            {
-                Id = t.Id,
-                Name = t.Name,
-                Rating = t.Rating,
-                Duration = t.Duration
-            });
+            return mapper.Map<IEnumerable<TrackDTO>>(tracks);
+            //return tracks.Select(t => new TrackDTO()
+            //{
+            //    Id = t.Id,
+            //    Name = t.Name,
+            //    Rating = t.Rating,
+            //    Duration = t.Duration
+            //});
         }
 
-        public void Update(Track track)
+        public void Update(TrackDTO track)
         {
-            context.Tracks.Update(track);
+            context.Tracks.Update(mapper.Map<Track>(track));
             context.SaveChanges();
         }
     }
