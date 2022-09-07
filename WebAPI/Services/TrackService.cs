@@ -2,11 +2,14 @@
 using DataAccess;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using WebAPI.DTOs;
+using WebAPI.Helpers;
 using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Services
 {
+    // Services should have exception handlers
     public class TrackService : ITrackService
     {
         private readonly MusicCollectionDb context;
@@ -26,11 +29,11 @@ namespace WebAPI.Services
 
         public void Delete(int id)
         {
-            if (id < 0) return;
+            if (id < 0) throw new HttpException(HttpStatusCode.BadGateway, "Id must be greater than zero.");
 
             var track = context.Tracks.Find(id);
 
-            if (track == null) return;
+            if (track == null) throw new HttpException(HttpStatusCode.NotFound, "Track is not found.");
 
             context.Tracks.Remove(track);
             context.SaveChanges();
