@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using DataAccess;
 using WebAPI.Services.Interfaces;
 using WebAPI.Services;
+using WebAPI;
 //using WebAPI.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

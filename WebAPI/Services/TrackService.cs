@@ -29,11 +29,11 @@ namespace WebAPI.Services
 
         public void Delete(int id)
         {
-            if (id < 0) throw new HttpException(HttpStatusCode.BadGateway, "Id must be greater than zero.");
+            if (id < 0) throw new HttpException(HttpStatusCode.BadRequest, ErrorMessages.IncorrectId);
 
             var track = context.Tracks.Find(id);
 
-            if (track == null) throw new HttpException(HttpStatusCode.NotFound, "Track is not found.");
+            if (track == null) throw new HttpException(HttpStatusCode.NotFound, ErrorMessages.TrackNotFound);
 
             context.Tracks.Remove(track);
             context.SaveChanges();
@@ -41,11 +41,11 @@ namespace WebAPI.Services
 
         public TrackDTO Get(int id)
         {
-            if (id < 0) return null;
+            if (id < 0) throw new HttpException(HttpStatusCode.BadRequest, ErrorMessages.IncorrectId);
 
             var track = context.Tracks.Find(id);
 
-            if (track == null) return null;
+            if (track == null) throw new HttpException(HttpStatusCode.NotFound, ErrorMessages.TrackNotFound);
 
             return mapper.Map<TrackDTO>(track);
         }
