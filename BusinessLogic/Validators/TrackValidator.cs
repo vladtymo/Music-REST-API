@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using WebAPI.DTOs;
+using BLL.DTOs;
 
 namespace DataAccess.Models.Validators
 {

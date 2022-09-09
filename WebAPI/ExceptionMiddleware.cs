@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using WebAPI.Helpers;
+using BLL.Helpers;
 
-namespace WebAPI
+namespace BLL
 {
     public class ExceptionMiddleware
     {

@@ -1,7 +1,7 @@
 ﻿using DataAccess.Models;
-using WebAPI.DTOs;
+using BLL.DTOs;
 
-namespace WebAPI.Services.Interfaces
+namespace BLL.Services.Interfaces
 {
     public interface ITrackService
     {

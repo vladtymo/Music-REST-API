@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using DataAccess;
-using WebAPI.Services.Interfaces;
-using WebAPI.Services;
-using WebAPI;
+using BLL.Services.Interfaces;
+using BLL.Services;
+using BLL;
 //using WebAPI.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);

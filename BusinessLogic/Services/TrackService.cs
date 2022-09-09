@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
+using BusinessLogic.Resources;
 using DataAccess;
 using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using WebAPI.DTOs;
-using WebAPI.Helpers;
-using WebAPI.Services.Interfaces;
+using BLL.DTOs;
+using BLL.Helpers;
+using BLL.Services.Interfaces;
 
-namespace WebAPI.Services
+namespace BLL.Services
 {
     // Services should have exception handlers
     public class TrackService : ITrackService

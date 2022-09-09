@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DataAccess.Models;
-using WebAPI.DTOs;
+using BLL.DTOs;
 
-namespace WebAPI.Helpers
+namespace BLL.Helpers
 {
     public class MapperProfile : Profile
     {

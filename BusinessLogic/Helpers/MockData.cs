@@ -1,6 +1,6 @@
 ﻿using DataAccess.Models;
 
-namespace WebAPI.Helpers
+namespace BLL.Helpers
 {
     public static class MockData
     {

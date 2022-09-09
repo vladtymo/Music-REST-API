@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Helpers;
+using BLL.Helpers;
 using DataAccess.Models;
 using DataAccess;
-using WebAPI.Services.Interfaces;
-using WebAPI.DTOs;
+using BLL.Services.Interfaces;
+using BLL.DTOs;
 
-namespace WebAPI.Controllers
+namespace BLL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
