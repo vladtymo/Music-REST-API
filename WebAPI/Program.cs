@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Core;
 using Core.Services;
-using Core;
 using Core.Interfaces;
 using Data.Repositories;
 //using WebAPI.Models.Validators;
