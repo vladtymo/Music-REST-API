@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core
 {
-    public class MusicCollectionDb : DbContext
+    internal class MusicCollectionDb : DbContext
     {
         public MusicCollectionDb(DbContextOptions options) : base(options)
         {

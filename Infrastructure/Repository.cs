@@ -8,9 +8,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Repositories
+namespace Core.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    internal class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal MusicCollectionDb context;
         internal DbSet<TEntity> dbSet;
