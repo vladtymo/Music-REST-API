@@ -1,6 +1,6 @@
-﻿using DataAccess.Models;
+﻿using Core.Entities;
 
-namespace BLL.Helpers
+namespace Core.Helpers
 {
     public static class MockData
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BLL.DTOs
+namespace Core.DTOs
 {
     // Data Transfer Object (DTO)
     public class TrackDTO

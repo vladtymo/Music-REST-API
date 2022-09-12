@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using DataAccess.Models;
-using BLL.DTOs;
+using Core.Entities;
+using Core.DTOs;
 
-namespace BLL.Helpers
+namespace Core.Helpers
 {
     public class MapperProfile : Profile
     {

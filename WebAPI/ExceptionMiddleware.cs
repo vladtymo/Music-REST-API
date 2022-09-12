@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using BLL.Helpers;
+using Core.Helpers;
 
-namespace BLL
+namespace Core
 {
     public class ExceptionMiddleware
     {

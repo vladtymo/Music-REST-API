@@ -1,7 +1,7 @@
-﻿using DataAccess.Models;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess
+namespace Core
 {
     public class MusicCollectionDb : DbContext
     {

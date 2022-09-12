@@ -4,10 +4,11 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using DataAccess;
-using BLL.Services.Interfaces;
-using BLL.Services;
-using BLL;
+using Core;
+using Core.Services;
+using Core;
+using Core.Interfaces;
+using Data.Repositories;
 //using WebAPI.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssembli
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<ITrackService, TrackService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace BLL.Helpers
+namespace Core.Helpers
 {
     public class ErrorDetails
     {

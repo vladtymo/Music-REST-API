@@ -1,7 +1,7 @@
-﻿using DataAccess.Models;
-using BLL.DTOs;
+﻿using Core.Entities;
+using Core.DTOs;
 
-namespace BLL.Services.Interfaces
+namespace Core.Interfaces
 {
     public interface ITrackService
     {

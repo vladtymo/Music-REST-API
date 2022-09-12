@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace BLL.Helpers
+namespace Core.Helpers
 {
     [Serializable]
     public class HttpException : Exception

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using BLL.DTOs;
+using Core.DTOs;
 
-namespace DataAccess.Models.Validators
+namespace Core.Validators
 {
     public class TrackValidator : AbstractValidator<TrackDTO>
     {
