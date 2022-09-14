@@ -8,6 +8,7 @@ using Core;
 using Core.Services;
 using Core.Interfaces;
 using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 //using WebAPI.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("MusicDbConnection"));
-//builder.Services.AddDbContext<MusicCollectionDb>(options =>
-//                options.UseSqlServer(builder.Configuration.GetConnectionString("MusicDbConnection")));
+builder.Services.AddIdentity();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
@@ -26,9 +26,7 @@ builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssembli
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddRepository();
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-builder.Services.AddScoped<ITrackService, TrackService>();
+builder.Services.AddCustomServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -123,4 +123,7 @@
   <data name="TrackNotFound" xml:space="preserve">
     <value>Track is not found.</value>
   </data>
+  <data name="UserAlreadyExists" xml:space="preserve">
+    <value>The user is already exists with this email address.</value>
+  </data>
 </root>

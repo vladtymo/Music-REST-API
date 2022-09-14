@@ -77,5 +77,14 @@ namespace Core.Resources {
                 return ResourceManager.GetString("TrackNotFound", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user is already exists with this email address..
+        /// </summary>
+        public static string UserAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserAlreadyExists", resourceCulture);
+            }
+        }
     }
 }
