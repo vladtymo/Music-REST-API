@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            await accountService.LoginAsync(data.Login, data.Password);
+            var respose = await accountService.LoginAsync(data.Login, data.Password);
 
-            return Ok();
+            return Ok(respose);
         }
 
         [HttpPost("logout")]

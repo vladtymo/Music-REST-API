@@ -6,6 +6,7 @@ using Core;
 using Core.DTOs;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Core.Controllers
 {
@@ -20,7 +21,7 @@ namespace Core.Controllers
             this.trackService = trackService;
         }
 
-        [Authorize()]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks
