@@ -5,6 +5,7 @@ using Core.Entities;
 using Core;
 using Core.DTOs;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Core.Controllers
 {
@@ -19,6 +20,7 @@ namespace Core.Controllers
             this.trackService = trackService;
         }
 
+        [Authorize()]
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks

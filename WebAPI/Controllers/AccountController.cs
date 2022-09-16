@@ -26,5 +26,23 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO data)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+
+            await accountService.LoginAsync(data.Login, data.Password);
+
+            return Ok();
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await accountService.LogoutAsync();
+
+            return Ok();
+        }
     }
 }

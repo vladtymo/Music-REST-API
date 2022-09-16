@@ -10,7 +10,7 @@ namespace Core.Interfaces
     public interface IAccountService
     {
         Task RegisterAsync(RegisterDTO userData);
-        Task Login(string login, string password);
-        Task Logout();
+        Task LoginAsync(string login, string password);
+        Task LogoutAsync();
     }
 }

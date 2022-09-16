@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,17 +45,24 @@ namespace Core.Services
                 //    errroBuilder.AppendLine(error.Description);
                 //}
 
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest, message);
+                throw new HttpException(HttpStatusCode.BadRequest, message);
             }
         }
-        public Task Login(string login, string password)
+        public async Task LoginAsync(string login, string password)
         {
-            throw new NotImplementedException();
+            var user = await userManager.FindByEmailAsync(login);
+
+            if (user == null || !await userManager.CheckPasswordAsync(user, password))
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, "Invalid login or password.");
+            }
+
+            await signInManager.SignInAsync(user, true);
         }
 
-        public Task Logout()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await signInManager.SignOutAsync();
         }
     }
 }
