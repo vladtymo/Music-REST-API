@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebAPI;
 //using WebAPI.Models.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +53,10 @@ builder.Services.AddCustomServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.ConfigureSwagger();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

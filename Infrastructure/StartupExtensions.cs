@@ -17,6 +17,7 @@ namespace Infrastructure
         public static void AddIdentity(this IServiceCollection services)
         {
             services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MusicCollectionDb>()
                 .AddDefaultTokenProviders();
         }

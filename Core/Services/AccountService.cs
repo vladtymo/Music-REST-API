@@ -19,14 +19,17 @@ namespace Core.Services
     internal class AccountService : IAccountService
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly IConfiguration configuration;
 
         public AccountService(UserManager<IdentityUser> userManager, 
+                              RoleManager<IdentityRole> roleManager,
                               SignInManager<IdentityUser> signInManager,
                               IConfiguration configuration)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
         }
@@ -54,6 +57,11 @@ namespace Core.Services
 
                 throw new HttpException(HttpStatusCode.BadRequest, message);
             }
+
+            if (!await roleManager.RoleExistsAsync(userData.Role))
+                await roleManager.CreateAsync(new IdentityRole(userData.Role));
+
+            await userManager.AddToRoleAsync(user, userData.Role);
         }
         public async Task<LoginResponse> LoginAsync(string login, string password)
         {
@@ -68,18 +76,24 @@ namespace Core.Services
 
             return new LoginResponse()
             {
-                Token = GenerateToken(user)
+                Token = await GenerateTokenAsync(user)
             };
         }
 
-        private string GenerateToken(IdentityUser user)
+        private async Task<string> GenerateTokenAsync(IdentityUser user)
         {
             // create claims
-            var claims = new ClaimsIdentity(new[]
+            var claims = new List<Claim>()
             {
-                new Claim(nameof(user.Id), user.Id),
-                new Claim(nameof(user.Email), user.Email)
-            });
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            var roles = await userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             // generate token
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -89,7 +103,7 @@ namespace Core.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = claims,
+                Subject = new ClaimsIdentity(claims),
                 Issuer = jwtOptions.Issuer,
                 Expires = DateTime.UtcNow.AddHours(jwtOptions.Lifetime), // TODO: not working - fix
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

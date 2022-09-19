@@ -57,6 +57,7 @@ namespace Core.Controllers
 
 
         // Get data from body
+        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public IActionResult Create([FromBody] TrackDTO track)
         {
@@ -67,6 +68,7 @@ namespace Core.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut]
         public IActionResult Update([FromBody] TrackDTO track)
         {
@@ -77,6 +79,7 @@ namespace Core.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {
