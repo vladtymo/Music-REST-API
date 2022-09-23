@@ -363,7 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # image folder
-images/*
+images/
 
 # exception to the .gitkeep files
 !*.gitkeep 
