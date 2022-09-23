@@ -55,17 +55,23 @@ namespace Core.Controllers
         //    });
         //}
 
-
         // Get data from body
         [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
-        public IActionResult Create([FromBody] TrackDTO track)
+        public IActionResult Create([FromForm] TrackDTO track)
         {
             if (!ModelState.IsValid) return BadRequest();
 
             trackService.Create(track);
-
+             
             return Ok();
+        }
+
+        [HttpGet("images/{id:int}")]
+        public IActionResult GetImage([FromRoute] int id)
+        {
+            var fileInfo = trackService.GetImage(id);
+            return File(fileInfo.Stream, fileInfo.ContentType, fileInfo.FileName);
         }
 
         [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

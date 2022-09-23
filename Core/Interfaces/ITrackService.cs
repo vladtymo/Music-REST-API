@@ -7,11 +7,10 @@ namespace Core.Interfaces
     {
         Task<IEnumerable<TrackDTO>> GetAllAsync();
         TrackDTO Get(int id);
+        DownloadFileDTO GetImage(int trackId);
         IEnumerable<TrackDTO> Get(float ratingFrom);
         void Create(TrackDTO track);
         void Update(TrackDTO track);
         void Delete(int id);
-
-
     }
 }

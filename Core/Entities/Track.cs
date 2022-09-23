@@ -10,5 +10,6 @@ namespace Core.Entities
         public string Name { get; set; }
         public float? Rating { get; set; }
         public TimeSpan Duration { get; set; }
+        public string? ImagePath { get; set; }
     }
 }
