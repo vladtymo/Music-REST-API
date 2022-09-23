@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="images\NewFolder\**" />
+    <Content Remove="images\NewFolder\**" />
+    <EmbeddedResource Remove="images\NewFolder\**" />
+    <None Remove="images\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
