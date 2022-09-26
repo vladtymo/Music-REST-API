@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Core.Controllers
 {
+    [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class TracksController : ControllerBase
@@ -21,7 +22,7 @@ namespace Core.Controllers
             this.trackService = trackService;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks
@@ -56,7 +57,6 @@ namespace Core.Controllers
         //}
 
         // Get data from body
-        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public IActionResult Create([FromForm] TrackDTO track)
         {
@@ -74,7 +74,6 @@ namespace Core.Controllers
             return File(fileInfo.Stream, fileInfo.ContentType, fileInfo.FileName);
         }
 
-        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut]
         public IActionResult Update([FromBody] TrackDTO track)
         {
@@ -85,7 +84,6 @@ namespace Core.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id:int}")]
         public IActionResult Delete([FromRoute] int id)
         {

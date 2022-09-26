@@ -17,6 +17,8 @@ using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string connectionString = builder.Configuration.GetConnectionString("SomeeConnection");
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -40,7 +42,7 @@ builder.Services.AddAuthentication(options =>
             };
         });
 
-builder.Services.AddDbContext(builder.Configuration.GetConnectionString("MusicDbConnection"));
+builder.Services.AddDbContext(connectionString);
 builder.Services.AddIdentity();
 
 builder.Services.AddFluentValidationAutoValidation();
@@ -67,6 +69,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
