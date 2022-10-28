@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Core.Controllers
 {
+    //Roles = "admin", 
     [Authorize(Roles = "admin", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
@@ -22,7 +23,7 @@ namespace Core.Controllers
             this.trackService = trackService;
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,6 +116,53 @@ namespace Core.Services
         public async Task LogoutAsync()
         {
             await signInManager.SignOutAsync();
+        }
+
+        public async Task RequestResetPassword(string userEmail)
+        {
+            // send email with reset password token
+
+            var user = await userManager.FindByEmailAsync(userEmail);
+
+            if (user == null) throw new HttpException(HttpStatusCode.NotFound, ErrorMessages.UserNotFound);
+
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+            // create reset password link
+            //string resetPasswordLink = "";
+
+            // send token
+            // TODO: use separate email service
+
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.Credentials = new NetworkCredential("prodoq@gmail.com", "bnicxhamzbjbctto");
+            smtpClient.EnableSsl = true;
+
+            MailMessage message = new MailMessage("prodoq@gmail.com", userEmail)
+            {
+                Subject = "Reset Password",
+                Body = $"Your reset password token: {token}",
+                IsBodyHtml = false
+            };
+
+            smtpClient.SendAsync(message, null);
+        }
+
+        public async Task ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var user = await userManager.FindByEmailAsync(resetPasswordDTO.UserEmail);
+
+            if (user == null) 
+                throw new HttpException(HttpStatusCode.NotFound, ErrorMessages.UserNotFound);
+
+            var result = await userManager.ResetPasswordAsync(user, resetPasswordDTO.Token, resetPasswordDTO.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                string errors = string.Join(", ", result.Errors.Select(e => e.Description));
+
+                throw new HttpException(HttpStatusCode.InternalServerError, errors);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("SomeeConnection");
+string connectionString = builder.Configuration.GetConnectionString("MusicDbConnection");
 
 // Add services to the container.
 
@@ -72,6 +72,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+app.UseCors(builder => builder
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowAnyOrigin()
+);
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -44,5 +44,21 @@ namespace WebAPI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("request-password-reset")]
+        public async Task<IActionResult> RequestPasswordReset([FromBody] RequestResetPasswordDTO request)
+        {
+            await accountService.RequestResetPassword(request.UserEmail);
+
+            return Ok();
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            await accountService.ResetPassword(resetPasswordDTO);
+
+            return Ok();
+        }
     }
 }
