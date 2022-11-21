@@ -16,7 +16,8 @@ namespace Core
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("workstation id=blablashopdb.mssql.somee.com;packet size=4096;user id=wladnaz_SQLLogin_1;pwd=qsyiy5d3ff;data source=blablashopdb.mssql.somee.com;persist security info=False;initial catalog=blablashopdb");
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer("Server=tcp:myserver4343.database.windows.net,1433;Initial Catalog=musicAzureDb;Persist Security Info=False;User ID=super_user;Password=Abc123456;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -17,7 +17,7 @@ using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("MusicDbConnection");
+string connectionString = builder.Configuration.GetConnectionString("AzureSQL");
 
 // Add services to the container.
 

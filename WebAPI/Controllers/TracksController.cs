@@ -23,7 +23,7 @@ namespace Core.Controllers
             this.trackService = trackService;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         //[Route("all")]           // localhost:port/api/tracks/all
         //[Route("/get-tracks")] // localhost:port/get-tracks
